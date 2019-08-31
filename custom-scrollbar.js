@@ -145,6 +145,7 @@ class CustomScrollbar extends PolymerElement {
         const scrollPercentage = scroll.scrollTop / maxScrollTop;
         scrollBar.style.top = `${(100 - scrollBarHeightPercentage) * scrollPercentage}%`;
       }
+      scroll.onscroll();
       scrollBar.className = "simplebar-visible";
       scrollBarOffset.style.right = "-17px";
     }
