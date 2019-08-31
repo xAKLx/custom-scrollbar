@@ -13,7 +13,7 @@ class CustomScrollbar extends PolymerElement {
     return html`
   <div class="data-simplebar">
     <div class="simplebar-mask">
-      <div class="simplebar-offset" style="right: -17px;">
+      <div id="simplebar-offset" style="right: -17px;">
         <div id="simplebar-content-wrapper">
           <div class="simplebar-content">
             <slot/>
@@ -44,7 +44,7 @@ class CustomScrollbar extends PolymerElement {
     right: 0;
   }
   
-  .simplebar-offset {
+  #simplebar-offset {
     position: absolute;
     top: 0;
     left: 0;
@@ -114,6 +114,7 @@ class CustomScrollbar extends PolymerElement {
 
     this._scroll = this.shadowRoot.getElementById('simplebar-content-wrapper');
     this.scrollBar = this.shadowRoot.getElementById('simplebar-scrollbar');
+    this.scrollBarOffset = this.shadowRoot.getElementById('simplebar-offset');
     this.updateScrollbar = this.updateScrollbar.bind(this);
 
     window.addEventListener('resize', this.updateScrollbar);
@@ -127,7 +128,7 @@ class CustomScrollbar extends PolymerElement {
   }
 
   updateScrollbar() {
-    const {_scroll: scroll, scrollBar} = this;
+    const {_scroll: scroll, scrollBar, scrollBarOffset} = this;
     const height = scroll.getBoundingClientRect().height;
 
     const scrollBarHeightPercentage = (100 * (height / scroll.scrollHeight));
@@ -138,12 +139,14 @@ class CustomScrollbar extends PolymerElement {
     if (maxScrollTop < 1) {
       scroll.onscroll = null;
       scrollBar.className = "simplebar-invisible";
+      scrollBarOffset.style.removeProperty('right');
     } else {
       scroll.onscroll = () => {
         const scrollPercentage = scroll.scrollTop / maxScrollTop;
         scrollBar.style.top = `${(100 - scrollBarHeightPercentage) * scrollPercentage}%`;
       }
       scrollBar.className = "simplebar-visible";
+      scrollBarOffset.style.right = "-17px";
     }
   }
 
