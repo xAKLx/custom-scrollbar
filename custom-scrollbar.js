@@ -120,7 +120,7 @@ class CustomScrollbar extends PolymerElement {
     window.addEventListener('resize', this.updateScrollbar);
     window.addEventListener('load', this.updateScrollbar);
 
-    const config = { attribute: true, childList: true, subtree: true };
+    const config = { attributes: true, childList: true, subtree: true };
     this._observer = new MutationObserver(this.updateScrollbar);
     this._observer.observe(this, config);
     
