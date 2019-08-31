@@ -10,7 +10,6 @@ import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
  */
 class CustomScrollbar extends PolymerElement {
   static get template() {
-    console.log('template!')
     return html`
   <div class="data-simplebar">
     <div class="simplebar-mask">
@@ -118,6 +117,7 @@ class CustomScrollbar extends PolymerElement {
     this.updateScrollbar = this.updateScrollbar.bind(this);
 
     window.addEventListener('resize', this.updateScrollbar);
+    window.addEventListener('load', this.updateScrollbar);
 
     const config = { attribute: true, childList: true, subtree: true };
     this._observer = new MutationObserver(this.updateScrollbar);
